@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Poppins", "sans-serif";
+    
+    --color-gray-50: rgb(230, 236, 243);
+    --color-gray-100: rgb(195, 199, 207);
+    --color-gray-300: rgb(86, 89, 99);
+    --color-gray-400: rgb(70, 65, 60);
+    --color-gray-500: rgb(37, 34, 31);
+    --color-gray-600: rgb(32, 29, 26);
+    --color-gray-700: rgb(31, 26, 22);
+  
+    --color-primary-50: rgb(200, 246, 253);
+    --color-primary-100: rgb(183, 235, 253);
+    --color-primary-200: rgb(143, 243, 250);
+    --color-primary-400: rgb(41, 205, 223);
+    --color-primary-500: rgb(14, 162, 212);
+    --color-primary-700: rgb(14, 143, 212);
+    --color-primary-200-contrast: rgb(2, 87, 100);
+    --color-primary-500-contrast: white;
+  
+    --color-error-100: rgb(239, 145, 126);
+    --color-error-500: rgb(199, 51, 15);
+  
+    --color-primary-500-bg: rgb(58, 61, 63);
+  
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+  
+    --border-radius-small: 4px;
+    --border-radius-medium: 6px;
+  
+    --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
