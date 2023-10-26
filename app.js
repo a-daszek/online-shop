@@ -6,6 +6,10 @@ const express = require("express");
 
 const csrf = require("csurf");
 
+const expressSession = require("express-session");
+
+const createSessionConfig = require("./config/session");
+
 const db = require("./data/database");
 
 const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
@@ -22,6 +26,10 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));//all the content in the public folder can be requested by visitors
 
 app.use(express.urlencoded({extended:false}));//it should only support regular submission forms hence the false parameter
+
+const sessionConfig = createSessionConfig();
+
+app.use(expressSession(sessionConfig));
 
 app.use(csrf()); //package that generates tokens for all requests that are not get request, this will protect the site against csrf attacks 
 
