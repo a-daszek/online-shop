@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get("/signup", authController.getSignup); //route for serving the signup page, not for getting and storing the user data, after the path which is the first parameter comes the middleware as argument. The function for signup is stored in auth.controller.js
 
+router.post("/signup", authController.signup); //whenever you are manipulating data on the server, you should use the post request
+
 router.get("/login", authController.getLogin);
 
 module.exports = router;

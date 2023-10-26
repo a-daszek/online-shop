@@ -6,7 +6,7 @@
     <%- include("../includes/header") %>
     <main>
         <h1>Create your account</h1>
-        <form action="" method="">
+        <form action="/signup" method="POST"><!-- with the action we control where the request is sent to, with method we define which kind of request is sent-->
             <p>
                 <label for="email">E-mail</label>
                 <input type="email" id="email" name="email" required> <!--the required attribute ensures that this can't be submitted empty-->
