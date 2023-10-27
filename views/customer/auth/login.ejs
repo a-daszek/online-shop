@@ -6,7 +6,7 @@
     <%- include("../../shared/includes/header") %>
     <main>
         <h1>Login</h1>
-        <form action="/signup" method="POST"><!-- with the action we control where the request is sent to, with method we define which kind of request is sent-->
+        <form action="/login" method="POST"><!-- with the action we control where the request is sent to, with method we define which kind of request is sent-->
             <input type="hidden" name="_csrf" value="<%= locals.csrfToken%>">
             <p>
                 <label for="email">E-mail</label>
