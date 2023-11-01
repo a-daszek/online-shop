@@ -10,4 +10,8 @@ router.post("/signup", authController.signup); //whenever you are manipulating d
 
 router.get("/login", authController.getLogin);
 
+router.post("/login", authController.login);
+
+router.post("/logout", authController.logout);
+
 module.exports = router;

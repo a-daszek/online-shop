@@ -45,9 +45,16 @@ async function login(req,res){ //see methods in models/user.model.js
 
 }
 
+function logout(req, res){
+    authUtil.destroyUserAuthSession(req);
+    res.redirect("/login");
+}
+
 module.exports = {
     getSignup: getSignup, //no parentheses, we just point at this function. Additionaly, what we did with this module.exports is we made the function available outside of this file as well
     getLogin: getLogin,
-    signup:signup
+    signup:signup,
+    login:login,
+    logout: logout
 };
 

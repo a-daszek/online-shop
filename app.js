@@ -16,6 +16,8 @@ const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
 
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 
+const checkAuthStatusMiddleware = require("./middlewares/check-auth");
+
 const authRoutes = require("./routes/auth.routes");// in the package.json we are pointing at this file (with a script) to execute first, and we have to make this file aware of auth.routes (app.js already is in the main project folder, we only have to create a relative path)
 
 const productsRoutes = require("./routes/products.routes");
@@ -37,6 +39,8 @@ app.use(expressSession(sessionConfig));
 app.use(csrf()); //package that generates tokens for all requests that are not get request, this will protect the site against csrf attacks 
 
 app.use(addCsrfTokenMiddleware);
+
+app.use(checkAuthStatusMiddleware);
 
 app.use(baseRoutes);
 
