@@ -3,11 +3,22 @@ const authUtil = require("../util/authentication");
 
 const validation = require("../util/validation");
 
+const sessionFlash = require("../util/session-flash");
+
 function getSignup(req, res) { //renders sign up form
     res.render("customer/auth/signup");
 }
 
 async function signup(req, res, next) {  //takes the user data from form
+    const enteredData = {
+        email: req.body.email,
+        password: req.body.password,
+        fullname: req.body.fullname,
+        street: req.body.street,
+        postal: req.body.postal,
+        city: req.body.city
+    };
+
     if ( //validation
         !validation.userDetailsAreValid(
             req.body.email,
@@ -18,7 +29,13 @@ async function signup(req, res, next) {  //takes the user data from form
             req.body.city
         ) || !validation.emailIsConfirmed(req.body.email, req.body["confirm-email"])
     ) {
-        res.redirect("/signup");
+        sessionFlash.flashDataToSession(req, {
+            errorMessage: "Please check your input. Password must be at least 6 characters long and postal code must be 5 characters long.",
+            ...enteredData // spread operator will take all the key value pairs and add them a key value in this object, into which you're spreading.
+        }, 
+        function(){
+            res.redirect("/signup");
+        })
         return; // just return so no other code executes
     }
 
@@ -35,7 +52,12 @@ async function signup(req, res, next) {  //takes the user data from form
         const existsAlready = await user.existsAlready();
 
         if (existsAlready) {
-            res.redirect("/signup");
+            sessionFlash.flashDataToSession(req, {
+                errorMessage: "User exists already. Try logging in instead.",
+                ...enteredData,
+            }, function(){
+                res.redirect("/signup");
+            });
             return;
         }
         await user.signup(); //stores a new user in a database
@@ -61,14 +83,25 @@ async function login(req, res, next) { //see methods in models/user.model.js
         return;
     }
 
+    const sessionErrorData = {
+        errorMessage: "Invalid credentials, please check your email and/or password ",
+        email: user.email,
+        password: user.password
+    };
+
     if (!existingUser) {
-        res.redirect("/login");
+        sessionFlash.flashDataToSession(req, sessionErrorData, function(){
+            res.redirect("/login");
+        })
         return;
     }
 
     const passwordIsCorrect = await user.hasMatchingPassword(existingUser.password);
+    
     if (!passwordIsCorrect) {
-        res.redirect("/login");
+        sessionFlash.flashDataToSession(req, sessionErrorData, function(){
+            res.redirect("/login");
+        })
         return;
     }
 
