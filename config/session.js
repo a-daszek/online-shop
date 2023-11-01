@@ -4,7 +4,7 @@ const expressSession = require("express-session");
 
 const mongoDbStore = require("connect-mongodb-session");
 
-function createSessionStore(){
+function createSessionStore() {
     const MongoDBStore = mongoDbStore(expressSession);
 
     const store = new MongoDBStore({
@@ -16,7 +16,7 @@ function createSessionStore(){
     return store;
 }
 
-function createSessionConfig (){
+function createSessionConfig() {
     return {
         secret: "super-secret",
         resave: false,

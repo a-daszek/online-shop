@@ -30,7 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static("public"));//all the content in the public folder can be requested by visitors
 
-app.use(express.urlencoded({extended:false}));//it should only support regular submission forms hence the false parameter
+app.use(express.urlencoded({ extended: false }));//it should only support regular submission forms hence the false parameter
 
 const sessionConfig = createSessionConfig();
 
@@ -50,9 +50,9 @@ app.use(productsRoutes);
 
 app.use(errorHandlerMiddleware);
 
-db.connectToDatabase().then(function(){
+db.connectToDatabase().then(function () {
     app.listen(3000);
-}).catch(function(error){
+}).catch(function (error) {
     console.log("Failed to connect to database");
     console.log(error);
 });
