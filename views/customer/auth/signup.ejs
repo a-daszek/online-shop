@@ -6,36 +6,42 @@
     <%- include("../../shared/includes/header") %>
     <main>
         <h1>Create your account</h1>
+        <% if (inputData.errorMessage) { %>
+            <section class="alert">
+                <h2>Invalid input</h2>
+                <p><%= inputData.errorMessage  %></p>
+            </section>
+        <% } %>
         <form action="/signup" method="POST"><!-- with the action we control where the request is sent to, with method we define which kind of request is sent-->
             <input type="hidden" name="_csrf" value="<%= locals.csrfToken%>">
             <p>
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="email" id="email" name="email" value="<%= inputData.email %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <p>
                 <label for="confirm-email">Confirm your e-mail</label>
-                <input type="email" id="confirm-email" name="confirm-email" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="email" id="confirm-email" name="confirm-email" value="<%= inputData.confirmEmail %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <p>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" minlength="6" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="password" id="password" name="password" minlength="6" value="<%= inputData.password %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <hr>
             <p>
                 <label for="fullname">Full name</label>
-                <input type="text" id="fullname" name="fullname" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="text" id="fullname" name="fullname" value="<%= inputData.fullname %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <p>
                 <label for="street">Street</label>
-                <input type="text" id="street" name="street" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="text" id="street" name="street" value="<%= inputData.street %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <p>
                 <label for="postal">Postal code</label>
-                <input type="text" id="postal" name="postal" minlength="5" maxlength="5" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="text" id="postal" name="postal" minlength="5" maxlength="5" value="<%= inputData.postal %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <p>
                 <label for="city">City</label>
-                <input type="text" id="city" name="city" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="text" id="city" name="city" value="<%= inputData.city %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <button class="btn">Create account</button>
             <p id="switch-form"><a href="/login">Login instead</a></p>

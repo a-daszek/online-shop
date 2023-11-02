@@ -6,15 +6,21 @@
     <%- include("../../shared/includes/header") %>
     <main>
         <h1>Login</h1>
+        <% if (inputData.errorMessage) { %>
+            <section class="alert">
+                <h2>Invalid credentials</h2>
+                <p><%= inputData.errorMessage  %></p>
+            </section>
+        <% } %>
         <form action="/login" method="POST"><!-- with the action we control where the request is sent to, with method we define which kind of request is sent-->
             <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
             <p>
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="email" id="email" name="email" value="<%= inputData.email %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <p>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" minlength="6" required> <!--the required attribute ensures that this can't be submitted empty-->
+                <input type="password" id="password" name="password" minlength="6" value="<%= inputData.password %>" required> <!--the required attribute ensures that this can't be submitted empty-->
             </p>
             <button class="btn">Login</button>
             <p id="switch-form"><a href="/signup">Create account</a></p>
