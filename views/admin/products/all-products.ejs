@@ -1,0 +1,15 @@
+<%- include("../../shared/includes/head", { pageTitle: "All products"}) %><!--with the dash we are taking raw html code and not escaping it-->
+</head>
+<body>
+    <%- include("../../shared/includes/header") %>
+    <main>
+        <h1>Product administration</h1>
+        <section>
+            <h2>Manage products</h2>
+            <p><a href="/admin/products/new" class="btn">Add product</a></p>
+        </section>
+        <section>
+            <p>A list of products...</p>
+        </section>
+    </main>
+<%- include("../../shared/includes/footer") %>

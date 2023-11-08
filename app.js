@@ -21,7 +21,10 @@ const checkAuthStatusMiddleware = require("./middlewares/check-auth");
 const authRoutes = require("./routes/auth.routes");// in the package.json we are pointing at this file (with a script) to execute first, and we have to make this file aware of auth.routes (app.js already is in the main project folder, we only have to create a relative path)
 
 const productsRoutes = require("./routes/products.routes");
+
 const baseRoutes = require("./routes/base.routes");
+
+const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 
@@ -47,6 +50,8 @@ app.use(baseRoutes);
 app.use(authRoutes); //we are adding a middleware that will be trigerred for every incoming request
 
 app.use(productsRoutes);
+
+app.use("/admin", adminRoutes);
 
 app.use(errorHandlerMiddleware);
 
