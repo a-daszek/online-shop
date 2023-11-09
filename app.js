@@ -33,6 +33,8 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static("public"));//all the content in the public folder can be requested by visitors
 
+app.use("/products/assets", express.static("product-data"));
+
 app.use(express.urlencoded({ extended: false }));//it should only support regular submission forms hence the false parameter
 
 const sessionConfig = createSessionConfig();
