@@ -1,0 +1,27 @@
+<form action="<%= submitPath %>/admin/products?_csrf=<%= locals.csrfToken %>" method="POST" enctype="multipart/form-data"> <!--post for submitting data, changed enctype because there is an image submission-->
+    <p>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value="<%= product.title %>" required><!--"id" so the label is connected to input (with "for" attribute) and "name",
+        so we have a key that we can use on the server side for extracting the entered data-->
+    </p>
+    <p>
+        <label for="image">Image</label> <!--npm install --save multer-->
+        <input type="file" name="image" id="image" accept="image/png,image/jpg">
+    </p>
+    <p>
+        <label for="summary">Summary</label>
+        <input type="text" name="summary" id="summary" value="<%= product.summary %>" required maxlength="250">
+    </p>
+    <p>
+        <label for="price">Price</label>
+        <input type="number" name="price" id="price" min="0.01" value="<%= product.price %>" step="0.01" required>
+    </p>
+    <p>
+        <label for="description">Description</label>
+        <textarea name="description" id="description" rows="7" required><%= product.description %></textarea>
+    </p>
+    <p>
+        <button type="reset" class="btn btn-alt">Reset</button>
+        <button class="btn">Save</button>
+    </p>
+</form>

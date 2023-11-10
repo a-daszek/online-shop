@@ -32,8 +32,23 @@ async function createNewProduct(req, res, next){
     res.redirect("/admin/products");
 }
 
+async function getUpdateProduct (req, res, next){
+    try {
+        const product = await Product.findById(req.params.id);
+        res.render("admin/products/update-product", { product: product }); //product after "try" is passed into this template (it's on the left)
+    } catch (error){
+        next(error);
+    }
+}
+
+function updateProduct (){
+
+}
+
 module.exports = {
     getProducts: getProducts,
     getNewProduct: getNewProduct,
-    createNewProduct: createNewProduct
+    createNewProduct: createNewProduct,
+    getUpdateProduct: getUpdateProduct,
+    updateProduct: updateProduct
 }
