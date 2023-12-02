@@ -4,10 +4,14 @@
         <input type="text" name="title" id="title" value="<%= product.title %>" required><!--"id" so the label is connected to input (with "for" attribute) and "name",
         so we have a key that we can use on the server side for extracting the entered data-->
     </p>
-    <p>
-        <label for="image">Image</label> <!--npm install --save multer-->
-        <input type="file" name="image" id="image" accept="image/png,image/jpg" <% if (imageRequired){%>required<%} %>>
-    </p>
+
+    <div id="image-upload-control">
+        <p>
+            <label for="image">Image</label> <!--npm install --save multer-->
+            <input type="file" name="image" id="image" accept="image/png,image/jpg" <% if (imageRequired){%>required<%} %>>
+        </p>
+        <img src="" alt="Selected image.">
+    </div>
     <p>
         <label for="summary">Summary</label>
         <input type="text" name="summary" id="summary" value="<%= product.summary %>" required maxlength="250">
