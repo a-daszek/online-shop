@@ -30,6 +30,8 @@ const baseRoutes = require("./routes/base.routes");
 
 const adminRoutes = require("./routes/admin.routes");
 
+const cartRoutes = require("./routes/cart.routes");
+
 const app = express();
 
 app.set("view engine", "ejs");//telling express that we will use ejs package
@@ -40,6 +42,7 @@ app.use(express.static("public"));//all the content in the public folder can be 
 app.use("/products/assets", express.static("product-data"));
 
 app.use(express.urlencoded({ extended: false }));//it should only support regular submission forms hence the false parameter
+app.use(express.json());// all incoming request are checked for JSON data
 
 const sessionConfig = createSessionConfig();
 
@@ -58,6 +61,8 @@ app.use(baseRoutes);
 app.use(authRoutes); //we are adding a middleware that will be trigerred for every incoming request
 
 app.use(productsRoutes);
+
+app.use("/cart", cartRoutes);
 
 app.use(protectRoutesMiddleware);
 
