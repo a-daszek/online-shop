@@ -1,5 +1,6 @@
 <%- include("../../shared/includes/head", { pageTitle: "Your cart"}) %><!--with the dash we are taking raw html code and not escaping it-->
 <link rel="stylesheet" href="/styles/cart.css">
+<script src="/scripts/cart-item-management.js" defer></script> <!--defer to make sure that it executes once everything was parsed-->
 </head>
 <body>
     <%- include("../../shared/includes/header") %>
