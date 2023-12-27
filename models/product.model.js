@@ -25,11 +25,11 @@ class Product {
     }
     const product = await db
       .getDb()
-      .collection('products')
+      .collection("products")
       .findOne({ _id: prodId });
 
     if (!product) {
-      const error = new Error('Could not find product with provided id.');
+      const error = new Error("Could not find product with provided id.");
       error.code = 404;
       throw error;
     }
@@ -37,12 +37,28 @@ class Product {
     return new Product(product);
   }
 
-  static async findAll() {//with static method we don't need to instantiate the class first, we don't need to create an object based 
+  static async findAll() {//with static method we don"t need to instantiate the class first, we don"t need to create an object based 
     // on the class in order to use static methods
     const products = await db.getDb().collection("products").find().toArray();
 
     return products.map(function (productDocument) { //transorming an array full of product documents into an array of products objects that are based on our class
       return new Product(productDocument); //we do that to have imagePath and imageUrl
+    });
+  }
+
+  static async findMultiple(ids) {
+    const productIds = ids.map(function(id) {
+      return new mongodb.ObjectId(id);
+    })
+    
+    const products = await db
+      .getDb()
+      .collection("products")
+      .find({ _id: { $in: productIds } })
+      .toArray();
+
+    return products.map(function (productDocument) {
+      return new Product(productDocument);
     });
   }
 
@@ -67,14 +83,14 @@ class Product {
         delete productData.image;
       }
 
-      await db.getDb().collection('products').updateOne(
+      await db.getDb().collection("products").updateOne(
         { _id: productId },
         {
           $set: productData,
         }
       );
     } else {
-      await db.getDb().collection('products').insertOne(productData);
+      await db.getDb().collection("products").insertOne(productData);
     }
   }
 
@@ -83,9 +99,9 @@ class Product {
     this.updateImageData();
   }
 
-  remove(){
+  remove() {
     const productId = new mongodb.ObjectId(this.id);
-    return db.getDb().collection("products").deleteOne({_id: productId});
+    return db.getDb().collection("products").deleteOne({ _id: productId });
   }
 }
 

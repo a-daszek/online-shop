@@ -1,9 +1,10 @@
 const Product = require("../models/product.model");
+const Order = require("../models/order.model");
 
 async function getProducts(req, res, next) {
   try {
     const products = await Product.findAll();
-    res.render("admin/products/all-products", { products: products }); //we are handling products by keyname "products" (the name is up to us) into that template
+    res.render("admin/products/all-products", { products: products });
   } catch (error) {
     next(error);
     return;
@@ -15,14 +16,12 @@ function getNewProduct(req, res) {
 }
 
 async function createNewProduct(req, res, next) {
-  // console.log(req.body);
-  // console.log(req.file);
   const product = new Product({
     ...req.body,
     image: req.file.filename,
   });
 
-  try { //express does not handle error that are caused by promises on its own
+  try {
     await product.save();
   } catch (error) {
     next(error);
@@ -35,7 +34,7 @@ async function createNewProduct(req, res, next) {
 async function getUpdateProduct(req, res, next) {
   try {
     const product = await Product.findById(req.params.id);
-    res.render('admin/products/update-product', { product: product });
+    res.render("admin/products/update-product", { product: product });
   } catch (error) {
     next(error);
   }
@@ -58,10 +57,10 @@ async function updateProduct(req, res, next) {
     return;
   }
 
-  res.redirect('/admin/products');
+  res.redirect("/admin/products");
 }
 
-async function deleteProduct (req, res, next){
+async function deleteProduct(req, res, next) {
   let product;
   try {
     product = await Product.findById(req.params.id);
@@ -70,7 +69,35 @@ async function deleteProduct (req, res, next){
     return next(error);
   }
 
-  res.json({ message: "Deleted product." });
+  res.json({ message: "Deleted product!" });
+}
+
+async function getOrders(req, res, next) {
+  try {
+    const orders = await Order.findAll();
+    res.render("admin/orders/admin-orders", {
+      orders: orders
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function updateOrder(req, res, next) {
+  const orderId = req.params.id;
+  const newStatus = req.body.newStatus;
+
+  try {
+    const order = await Order.findById(orderId);
+
+    order.status = newStatus;
+
+    await order.save();
+
+    res.json({ message: "Order updated", newStatus: newStatus });
+  } catch (error) {
+    next(error);
+  }
 }
 
 module.exports = {
@@ -79,5 +106,7 @@ module.exports = {
   createNewProduct: createNewProduct,
   getUpdateProduct: getUpdateProduct,
   updateProduct: updateProduct,
-  deleteProduct: deleteProduct
+  deleteProduct: deleteProduct,
+  getOrders: getOrders,
+  updateOrder: updateOrder
 };
